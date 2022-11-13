@@ -2,29 +2,94 @@ package nl.cargoledger.conversions.conversions
 
 import Conversion
 import InvalidDocumentException
+import com.google.gson.Gson
 import com.helger.ubl23.UBL23Reader
 import com.helger.ubl23.UBL23Validator
-import com.squareup.moshi.Moshi
 import nl.cargoledger.conversions.ConversionType
-import org.openapitools.client.models.Consignment
+import nl.cargoledger.conversions.models.opentrip.*
+import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_23.AddressType
+import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_23.GoodsItemType
+import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_23.PartyType
+import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_23.TransportHandlingUnitType
+import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_23.MeasureType
+import java.math.BigDecimal
+import java.util.*
 
 class UBLOpenTripConversion : Conversion(ConversionType.UBL, ConversionType.OPENTRIP) {
     override fun convert(a: String): String {
-        val ubl = try {
+        val waybill = try {
             UBL23Reader.waybill().read(a)!!
         } catch (e: Exception) {
             throw InvalidDocumentException(e.message ?: "Unknown error")
         }
-        val errors = UBL23Validator.waybill().validate(ubl)
+        val errors = UBL23Validator.waybill().validate(waybill)
         if (errors.isNotEmpty) {
             throw InvalidDocumentException(errors.joinToString())
         }
 
-        val moshi = Moshi.Builder().build()
-        val jsonAdapter = moshi.adapter(Consignment::class.java)
+        val shipment = waybill.shipment!!
+        val consignment = shipment.consignment.first()
 
-        val consignment = Consignment(entityType = Consignment.EntityType.consignment)
+        val opentrip = Consignment(
+            consignment.idValue!!,
+            ExternalAttributes(waybill.idValue!!, shipment.idValue!!),
+            consignment.transportHandlingUnit.map { transportEquipment(it) },
+            waybill.documentReference.mapNotNull { ref ->
+                ref.attachment?.embeddedDocumentBinaryObject?.let { doc ->
+                    Document(
+                        ref.idValue!!, ref.documentTypeCodeValue!!, doc.filename!!, doc.mimeCode!!,
+                        DocumentContent(Base64.getEncoder().encodeToString(doc.value))
+                    )
+                }
+            },
+            listOf(
+                Actors(partyToActor(consignment.consigneeParty!!), listOf(ActorRole.consignee)),
+                Actors(partyToActor(consignment.consignorParty!!), listOf(ActorRole.consignor)),
+                Actors(partyToActor(consignment.carrierParty!!), listOf(ActorRole.carrier)),
+            ),
+            listOf(
+                Actions(Action(ActionType.load, Locations(Location(null, postalAddressToAddress(consignment.requestedPickupTransportEvent!!.location!!.address!!))))),
+                Actions(Action(ActionType.unload, Locations(Location(null, postalAddressToAddress(consignment.requestedDeliveryTransportEvent!!.location!!.address!!)))))
+            )
+        )
 
-        return jsonAdapter.toJson(consignment)
+        return Gson().toJson(opentrip)
     }
+
+    private fun partyToActor(party: PartyType) = Actor(
+        party.partyName.first().nameValue!!,
+        listOf(Locations(Location(null, postalAddressToAddress(party.postalAddress!!))))
+    )
+
+    private fun postalAddressToAddress(address: AddressType) = Address(
+        houseNumber = address.buildingNumberValue,
+        houseNumberAddition = null,
+        street = address.streetNameValue,
+        postalCode = address.postalZoneValue,
+        city = address.cityNameValue,
+        country = address.country?.identificationCodeValue
+    )
+
+    private fun transportEquipment(unit: TransportHandlingUnitType): Goods {
+        val container = measureToDimension(unit.measurementDimension.find { it.measure?.unitCode == "ldm" }?.measure)
+        val pallet = measureToDimension(unit.measurementDimension.find { it.measure?.unitCode == "pp" }?.measure)
+        return Goods(TransportEquipment(
+            name = null,
+            loadMeters = container ?: pallet,
+            equipmentType = if (container != null) EquipmentType.loadCarrier else if (pallet != null) EquipmentType.pallet else EquipmentType.box,
+            containedGoods = unit.goodsItem.map { items(it) }
+        ))
+    }
+
+    private fun items(item: GoodsItemType) = Goods(
+        Items(
+            name = item.item.firstOrNull()?.nameValue,
+            description = item.item.first().description.first().value!!
+        )
+    )
+}
+
+
+private fun measureToDimension(measure: MeasureType?) =
+    measure?.let { Dimension((it.value ?: BigDecimal.ZERO).toDouble(), it.unitCode ?: "") }
 }
