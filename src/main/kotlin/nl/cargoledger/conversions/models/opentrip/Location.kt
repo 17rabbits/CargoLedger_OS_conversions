@@ -3,7 +3,6 @@ package nl.cargoledger.conversions.models.opentrip
 data class Locations(override val entity: Location) : Entity<Location>
 
 data class Location(
-    val name: String?,
     val administrativeReference: Address
 )
 

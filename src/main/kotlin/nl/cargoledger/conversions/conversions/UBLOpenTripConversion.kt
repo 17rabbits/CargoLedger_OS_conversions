@@ -31,10 +31,10 @@ class UBLOpenTripConversion : Conversion(ConversionType.UBL, ConversionType.OPEN
         val consignment = shipment.consignment.first()
 
         val opentrip = Consignment(
-            consignment.idValue!!,
-            ExternalAttributes(waybill.idValue!!, shipment.idValue!!),
-            consignment.transportHandlingUnit.map { transportEquipment(it) },
-            waybill.documentReference.mapNotNull { ref ->
+            id = consignment.idValue!!,
+            externalAttributes = ExternalAttributes(waybill.idValue!!, shipment.idValue!!),
+            goods = consignment.transportHandlingUnit.map { transportEquipment(it) },
+            documents = waybill.documentReference.mapNotNull { ref ->
                 ref.attachment?.embeddedDocumentBinaryObject?.let { doc ->
                     Document(
                         ref.idValue!!, ref.documentTypeCodeValue!!, doc.filename!!, doc.mimeCode!!,
@@ -42,14 +42,14 @@ class UBLOpenTripConversion : Conversion(ConversionType.UBL, ConversionType.OPEN
                     )
                 }
             },
-            listOf(
+            actors = listOf(
                 Actors(partyToActor(consignment.consigneeParty!!), listOf(ActorRole.consignee)),
                 Actors(partyToActor(consignment.consignorParty!!), listOf(ActorRole.consignor)),
                 Actors(partyToActor(consignment.carrierParty!!), listOf(ActorRole.carrier)),
             ),
-            listOf(
-                Actions(Action(ActionType.load, Locations(Location(null, postalAddressToAddress(consignment.requestedPickupTransportEvent!!.location!!.address!!))))),
-                Actions(Action(ActionType.unload, Locations(Location(null, postalAddressToAddress(consignment.requestedDeliveryTransportEvent!!.location!!.address!!)))))
+            actions = listOf(
+                Actions(Action(ActionType.load, Locations(Location(postalAddressToAddress(consignment.requestedPickupTransportEvent!!.location!!.address!!))))),
+                Actions(Action(ActionType.unload, Locations(Location(postalAddressToAddress(consignment.requestedDeliveryTransportEvent!!.location!!.address!!)))))
             )
         )
 
@@ -58,7 +58,7 @@ class UBLOpenTripConversion : Conversion(ConversionType.UBL, ConversionType.OPEN
 
     private fun partyToActor(party: PartyType) = Actor(
         party.partyName.first().nameValue!!,
-        listOf(Locations(Location(null, postalAddressToAddress(party.postalAddress!!))))
+        listOf(Locations(Location(postalAddressToAddress(party.postalAddress!!))))
     )
 
     private fun postalAddressToAddress(address: AddressType) = Address(
@@ -87,9 +87,7 @@ class UBLOpenTripConversion : Conversion(ConversionType.UBL, ConversionType.OPEN
             description = item.item.first().description.first().value!!
         )
     )
-}
 
-
-private fun measureToDimension(measure: MeasureType?) =
-    measure?.let { Dimension((it.value ?: BigDecimal.ZERO).toDouble(), it.unitCode ?: "") }
+    private fun measureToDimension(measure: MeasureType?) =
+        measure?.let { Dimension((it.value ?: BigDecimal.ZERO).toDouble(), it.unitCode ?: "") }
 }
