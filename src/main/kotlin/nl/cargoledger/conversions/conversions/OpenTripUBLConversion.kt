@@ -36,6 +36,7 @@ class OpenTripUBLConversion : Conversion(ConversionType.OPENTRIP, ConversionType
                     requestedDeliveryTransportEvent = TransportEventType().apply {
                         location = LocationType().apply { address = addressToPostalAddress(consignment.actions.find { it.entity.actionType == ActionType.unload }!!.entity.location.entity.administrativeReference) }
                     }
+                    setTransportHandlingUnit(consignment.goods.map { transportEquipment(it.entity as TransportEquipment) })
                 })
             }
             setDocumentReference(consignment.documents.map {

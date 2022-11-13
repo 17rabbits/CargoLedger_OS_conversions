@@ -2,6 +2,7 @@ package nl.cargoledger.conversions
 
 import Conversion
 import DoNothingConversion
+import nl.cargoledger.conversions.conversions.OpenTripUBLConversion
 import nl.cargoledger.conversions.conversions.UBLOpenTripConversion
 
 enum class ConversionType {
@@ -9,8 +10,9 @@ enum class ConversionType {
 }
 
 class ConversionManager {
-    private val conversions = mutableSetOf<Conversion>(
-        UBLOpenTripConversion()
+    private val conversions = mutableSetOf(
+        UBLOpenTripConversion(),
+        OpenTripUBLConversion()
     )
 
     fun get(a: ConversionType, b: ConversionType) = get(a.toString(), b.toString())
