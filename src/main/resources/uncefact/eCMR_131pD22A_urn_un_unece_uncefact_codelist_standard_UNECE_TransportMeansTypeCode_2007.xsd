@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:clm6Recommendation28="urn:un:unece:uncefact:codelist:standard:UNECE:TransportMeansTypeCode:2007"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:un:unece:uncefact:codelist:standard:UNECE:TransportMeansTypeCode:2007"
+    elementFormDefault="qualified"
+    version="3.4">
+  <xsd:simpleType name="TransportMeansTypeCodeContentType">
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="31"/>
+      <xsd:enumeration value="32"/>
+      <xsd:enumeration value="33"/>
+      <xsd:enumeration value="34"/>
+      <xsd:enumeration value="35"/>
+      <xsd:enumeration value="36"/>
+      <xsd:enumeration value="37"/>
+      <xsd:enumeration value="38"/>
+      <xsd:enumeration value="39"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
