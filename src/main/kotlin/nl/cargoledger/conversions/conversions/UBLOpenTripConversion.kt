@@ -37,7 +37,7 @@ class UBLOpenTripConversion : Conversion(ConversionType.UBL, ConversionType.OPEN
             documents = waybill.documentReference.mapNotNull { ref ->
                 ref.attachment?.embeddedDocumentBinaryObject?.let { doc ->
                     Document(
-                        ref.idValue!!, ref.documentTypeCodeValue!!, doc.filename!!, doc.mimeCode!!,
+                        ref.idValue!!, ref.documentTypeCodeValue ?: "unknown", doc.filename ?: "unknown", doc.mimeCode ?: "unknown",
                         DocumentContent(Base64.getEncoder().encodeToString(doc.value))
                     )
                 }
