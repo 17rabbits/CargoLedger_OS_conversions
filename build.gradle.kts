@@ -16,6 +16,9 @@ dependencies {
     implementation("com.helger.ubl", "ph-ubl23", "6.7.0")
     implementation("com.google.code.gson", "gson", "2.10")
     implementation("jakarta.xml.bind", "jakarta.xml.bind-api", "4.0.0")
+    implementation("javax.xml.bind", "jaxb-api", "2.3.1")
+    implementation("com.sun.xml.bind", "jaxb-impl", "2.3.3")
+    implementation("com.sun.xml.bind", "jaxb-core", "2.3.0.1")
 
     testImplementation(kotlin("test"))
 }
