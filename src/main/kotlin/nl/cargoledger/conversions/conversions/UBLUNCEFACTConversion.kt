@@ -14,6 +14,7 @@ import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_23.Par
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_23.TransportHandlingUnitType
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_23.MeasureType
 import un.unece.uncefact.data.standard.ecmr._131.ECMRType
+import un.unece.uncefact.data.standard.ecmr._131.ObjectFactory
 import un.unece.uncefact.data.standard.qualifieddatatype._131.CountryIDType
 import un.unece.uncefact.data.standard.qualifieddatatype._131.DocumentCodeType
 import un.unece.uncefact.data.standard.reusableaggregatebusinessinformationentity._131.*
@@ -47,7 +48,7 @@ class UBLUNCEFACTConversion : Conversion(ConversionType.UBL, ConversionType.UNCE
         val shipment = waybill.shipment!!
         val consignment = shipment.consignment.first()
 
-        val uncefact = ECMRType().apply {
+        val uncefact = ObjectFactory().createECMRType().apply {
             exchangedDocument = ExchangedDocumentType().apply {
                 id = IDType().apply { waybill.idValue!! }
             }
@@ -83,7 +84,7 @@ class UBLUNCEFACTConversion : Conversion(ConversionType.UBL, ConversionType.UNCE
         val jaxbContext: JAXBContext = JAXBContext.newInstance(ECMRType::class.java)
         val jaxbMarshaller = jaxbContext.createMarshaller()
         val sw = StringWriter()
-        jaxbMarshaller.marshal(uncefact, sw)
+        jaxbMarshaller.marshal(ObjectFactory().createECMR(uncefact), sw)
         return sw.toString()
     }
 
