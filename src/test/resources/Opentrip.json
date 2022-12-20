@@ -1,0 +1,110 @@
+{
+  "id": "2110037/4-0234",
+  "externalAttributes": {
+    "ecmrId": "NL-1-CGL123",
+    "shipmentId": "2110037.4123"
+  },
+  "goods": [
+    {
+      "entity": {
+        "equipmentType": "box",
+        "type": "transportEquipment"
+      }
+    }
+  ],
+  "documents": [],
+  "actors": [
+    {
+      "entity": {
+        "name": "416 ABCD Umea",
+        "locations": [
+          {
+            "entity": {
+              "administrativeReference": {
+                "street": "Marknadsgatan",
+                "postalCode": "90422",
+                "city": "Umea",
+                "country": "SE"
+              }
+            }
+          }
+        ]
+      },
+      "roles": [
+        "consignee"
+      ]
+    },
+    {
+      "entity": {
+        "name": "Agri Service \u0026 Handling BV",
+        "locations": [
+          {
+            "entity": {
+              "administrativeReference": {
+                "street": "Hollandweg 2",
+                "postalCode": "2665 MT",
+                "city": "Bleiswijk",
+                "country": "NL"
+              }
+            }
+          }
+        ]
+      },
+      "roles": [
+        "consignor"
+      ]
+    },
+    {
+      "entity": {
+        "name": "Self",
+        "locations": [
+          {
+            "entity": {
+              "administrativeReference": {
+                "street": "Hauwert",
+                "postalCode": "1691EA",
+                "city": "Hauwert",
+                "country": "NL"
+              }
+            }
+          }
+        ]
+      },
+      "roles": [
+        "carrier"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "entity": {
+        "actionType": "load",
+        "location": {
+          "entity": {
+            "administrativeReference": {
+              "street": "Hollandweg 2",
+              "postalCode": "2665 MT",
+              "city": "Bleiswijk",
+              "country": "NL"
+            }
+          }
+        }
+      }
+    },
+    {
+      "entity": {
+        "actionType": "unload",
+        "location": {
+          "entity": {
+            "administrativeReference": {
+              "street": "Marknadsgatan",
+              "postalCode": "90422",
+              "city": "Umea",
+              "country": "SE"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

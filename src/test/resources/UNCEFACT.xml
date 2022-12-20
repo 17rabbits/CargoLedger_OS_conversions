@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:eCMR xmlns:ns2="urn:un:unece:uncefact:data:standard:eCMR:131" xmlns="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:131" xmlns:ns3="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:131" xmlns:ns4="urn:un:unece:uncefact:data:standard:QualifiedDataType:131">
+    <ns2:ExchangedDocument>
+        <ID />
+    </ns2:ExchangedDocument>
+    <ns2:SpecifiedSupplyChainConsignment>
+        <ID />
+        <ConsignorTradeParty>
+            <Name>Agri Service &amp; Handling BV</Name>
+            <PostalTradeAddress>
+                <ID />
+                <PostcodeCode>2665 MT</PostcodeCode>
+                <StreetName>Hollandweg 2</StreetName>
+                <CityName>Bleiswijk</CityName>
+                <CountryID>NL</CountryID>
+            </PostalTradeAddress>
+        </ConsignorTradeParty>
+        <ConsigneeTradeParty>
+            <Name>416 ABCD Umea</Name>
+            <PostalTradeAddress>
+                <ID />
+                <PostcodeCode>90422</PostcodeCode>
+                <StreetName>Marknadsgatan</StreetName>
+                <CityName>Umea</CityName>
+                <CountryID>SE</CountryID>
+            </PostalTradeAddress>
+        </ConsigneeTradeParty>
+        <CarrierTradeParty>
+            <Name>Self</Name>
+            <PostalTradeAddress>
+                <ID />
+                <PostcodeCode>1691EA</PostcodeCode>
+                <StreetName>Hauwert</StreetName>
+                <CityName>Hauwert</CityName>
+                <CountryID>NL</CountryID>
+            </PostalTradeAddress>
+        </CarrierTradeParty>
+        <DeliveryTransportEvent>
+            <OccurrenceLogisticsLocation>
+                <PostalTradeAddress>
+                    <ID />
+                    <PostcodeCode>90422</PostcodeCode>
+                    <StreetName>Marknadsgatan</StreetName>
+                    <CityName>Umea</CityName>
+                    <CountryID>SE</CountryID>
+                </PostalTradeAddress>
+            </OccurrenceLogisticsLocation>
+        </DeliveryTransportEvent>
+        <PickUpTransportEvent>
+            <OccurrenceLogisticsLocation>
+                <PostalTradeAddress>
+                    <ID />
+                    <PostcodeCode>2665 MT</PostcodeCode>
+                    <StreetName>Hollandweg 2</StreetName>
+                    <CityName>Bleiswijk</CityName>
+                    <CountryID>NL</CountryID>
+                </PostalTradeAddress>
+            </OccurrenceLogisticsLocation>
+        </PickUpTransportEvent>
+        <IncludedSupplyChainConsignmentItem>
+            <SequenceNumeric>1</SequenceNumeric>
+        </IncludedSupplyChainConsignmentItem>
+    </ns2:SpecifiedSupplyChainConsignment>
+</ns2:eCMR>

@@ -36,7 +36,7 @@ class OpenTripUBLConversion : Conversion(ConversionType.OPENTRIP, ConversionType
                     requestedDeliveryTransportEvent = TransportEventType().apply {
                         location = LocationType().apply { address = addressToPostalAddress(consignment.actions.find { it.entity.actionType == ActionType.unload }!!.entity.location.entity.administrativeReference) }
                     }
-                    setTransportHandlingUnit(consignment.goods.map { transportEquipment(it.entity as TransportEquipment) })
+                    setTransportHandlingUnit(consignment.goods.map { transportEquipment(it.entity) })
                 })
             }
             setDocumentReference(consignment.documents.map {
@@ -75,16 +75,19 @@ class OpenTripUBLConversion : Conversion(ConversionType.OPENTRIP, ConversionType
         country = CountryType().apply { identificationCode = IdentificationCodeType(address.country) }
     }
 
-    private fun transportEquipment(equipment: TransportEquipment): TransportHandlingUnitType = TransportHandlingUnitType().apply {
+    private fun transportEquipment(equipment: TransportEntity): TransportHandlingUnitType = TransportHandlingUnitType().apply {
         addPackage(PackageType().apply {
-            setGoodsItem(equipment.containedGoods.map { goodsItem(it.entity as Items) })
+            setGoodsItem(equipment.productType?.let { listOf( GoodsItemType().apply {
+                this.description.add(DescriptionType(equipment.productType))
+                equipment.description?.let { this.addItem(ItemType().apply { this.description.add(DescriptionType(it)) }) }
+            } )})
             dimensionToMeasure(equipment.loadMeters)?.let {
                 addMeasurementDimension(DimensionType().apply { measure = it })
             }
         })
     }
 
-    private fun goodsItem(item: Items) = GoodsItemType().apply {
+    private fun goodsItem(item: TransportEntity) = GoodsItemType().apply {
         addItem(ItemType().apply {
             name = NameType(item.name)
             addDescription(DescriptionType(item.description))

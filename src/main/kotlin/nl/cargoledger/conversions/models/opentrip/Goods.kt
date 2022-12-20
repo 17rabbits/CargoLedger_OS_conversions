@@ -2,26 +2,14 @@ package nl.cargoledger.conversions.models.opentrip
 
 data class Goods(override val entity: TransportEntity) : Entity<TransportEntity>
 
-sealed interface TransportEntity {
-    val name: String?
-    val type: EntityType
-}
-
-data class TransportEquipment(
-    override val name: String?,
+data class TransportEntity(
+    val name: String?,
     val loadMeters: Dimension?,
-    val containedGoods: List<Goods>,
-    val equipmentType: EquipmentType
-) : TransportEntity {
-    override val type = EntityType.transportEquipment
-}
-
-data class Items(
-    override val name: String?,
-    val description: String
-) : TransportEntity {
-    override val type = EntityType.items
-}
+    val equipmentType: EquipmentType,
+    val description: String?,
+    val type: EntityType,
+    val productType: String?
+)
 
 data class Dimension(
     val value: Double,

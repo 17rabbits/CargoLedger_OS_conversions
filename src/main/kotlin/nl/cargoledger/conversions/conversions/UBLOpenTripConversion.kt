@@ -73,20 +73,15 @@ class UBLOpenTripConversion : Conversion(ConversionType.UBL, ConversionType.OPEN
     private fun transportEquipment(unit: TransportHandlingUnitType): Goods {
         val container = measureToDimension(unit.measurementDimension.find { it.measure?.unitCode == "ldm" }?.measure)
         val pallet = measureToDimension(unit.measurementDimension.find { it.measure?.unitCode == "pp" }?.measure)
-        return Goods(TransportEquipment(
+        return Goods(TransportEntity(
             name = null,
             loadMeters = container ?: pallet,
             equipmentType = if (container != null) EquipmentType.loadCarrier else if (pallet != null) EquipmentType.pallet else EquipmentType.box,
-            containedGoods = unit.goodsItem.map { items(it) }
+            productType = unit.goodsItem.firstOrNull()?.description?.firstOrNull()?.value,
+            description = unit.goodsItem.firstOrNull()?.item?.firstOrNull()?.description?.firstOrNull()?.value,
+            type = EntityType.transportEquipment
         ))
     }
-
-    private fun items(item: GoodsItemType) = Goods(
-        Items(
-            name = item.item.firstOrNull()?.nameValue,
-            description = item.item.first().description.first().value!!
-        )
-    )
 
     private fun measureToDimension(measure: MeasureType?) =
         measure?.let { Dimension((it.value ?: BigDecimal.ZERO).toDouble(), it.unitCode ?: "") }

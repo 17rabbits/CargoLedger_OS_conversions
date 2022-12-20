@@ -1,0 +1,133 @@
+<Waybill xmlns="urn:oasis:names:specification:ubl:schema:xsd:Waybill-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+         xmlns:cec="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+    <cbc:CustomizationID>urn:fdc:peppol-logistics.eu:logistics:waybill:1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:fdc:peppol-logistics.eu:logistics:waybill:1.0</cbc:ProfileID>
+    <cbc:ID>NL-1-CGL123</cbc:ID>
+    <cac:ConsignorParty>
+        <cbc:EndpointID schemeID="0106">64064808</cbc:EndpointID>
+        <cac:PartyName>
+            <cbc:Name>Agri Service &amp; Handling BV</cbc:Name>
+        </cac:PartyName>
+        <cac:PostalAddress>
+            <cbc:StreetName>Hollandweg 2</cbc:StreetName>
+            <cbc:CityName>Bleiswijk</cbc:CityName>
+            <cbc:PostalZone>2665 MT</cbc:PostalZone>
+            <cac:Country>
+                <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+            </cac:Country>
+        </cac:PostalAddress>
+    </cac:ConsignorParty>
+    <cac:CarrierParty>
+        <cbc:EndpointID schemeID="0106">69729492</cbc:EndpointID>
+        <cac:PartyName>
+            <cbc:Name>Self</cbc:Name>
+        </cac:PartyName>
+        <cac:PostalAddress>
+            <cbc:StreetName>Hauwert</cbc:StreetName>
+            <cbc:CityName>Hauwert</cbc:CityName>
+            <cbc:PostalZone>1691EA</cbc:PostalZone>
+            <cac:Country>
+                <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+            </cac:Country>
+        </cac:PostalAddress>
+    </cac:CarrierParty>
+    <cac:Shipment>
+        <cbc:ID>2110037.4123</cbc:ID>
+        <cac:Consignment>
+            <cbc:ID>2110037/4-0234</cbc:ID>
+            <cac:RequestedPickupTransportEvent>
+                <cac:Location>
+                    <cac:Address>
+                        <cbc:StreetName>Hollandweg 2</cbc:StreetName>
+                        <cbc:CityName>Bleiswijk</cbc:CityName>
+                        <cbc:PostalZone>2665 MT</cbc:PostalZone>
+                        <cac:Country>
+                            <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+                        </cac:Country>
+                    </cac:Address>
+                </cac:Location>
+            </cac:RequestedPickupTransportEvent>
+            <cac:RequestedDeliveryTransportEvent>
+                <cac:Location>
+                    <cac:Address>
+                        <cbc:StreetName>Marknadsgatan</cbc:StreetName>
+                        <cbc:CityName>Umea</cbc:CityName>
+                        <cbc:PostalZone>90422</cbc:PostalZone>
+                        <cac:Country>
+                            <cbc:IdentificationCode>SE</cbc:IdentificationCode>
+                        </cac:Country>
+                    </cac:Address>
+                </cac:Location>
+            </cac:RequestedDeliveryTransportEvent>
+            <cac:ConsigneeParty>
+                <cac:PartyName>
+                    <cbc:Name>416 ABCD Umea</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                    <cbc:StreetName>Marknadsgatan</cbc:StreetName>
+                    <cbc:CityName>Umea</cbc:CityName>
+                    <cbc:PostalZone>90422</cbc:PostalZone>
+                    <cac:Country>
+                        <cbc:IdentificationCode>SE</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:PostalAddress>
+            </cac:ConsigneeParty>
+            <cac:ConsignorParty>
+                <cbc:EndpointID schemeID="0106">64064808</cbc:EndpointID>
+                <cac:PartyName>
+                    <cbc:Name>Agri Service &amp; Handling BV</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                    <cbc:StreetName>Hollandweg 2</cbc:StreetName>
+                    <cbc:CityName>Bleiswijk</cbc:CityName>
+                    <cbc:PostalZone>2665 MT</cbc:PostalZone>
+                    <cac:Country>
+                        <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:PostalAddress>
+            </cac:ConsignorParty>
+            <cac:CarrierParty>
+                <cbc:EndpointID schemeID="0106">69729492</cbc:EndpointID>
+                <cac:PartyName>
+                    <cbc:Name>Self</cbc:Name>
+                </cac:PartyName>
+                <cac:PostalAddress>
+                    <cbc:StreetName>Hauwert</cbc:StreetName>
+                    <cbc:CityName>Hauwert</cbc:CityName>
+                    <cbc:PostalZone>1691EA</cbc:PostalZone>
+                    <cac:Country>
+                        <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:PostalAddress>
+            </cac:CarrierParty>
+            <cac:MainCarriageShipmentStage>
+                <cbc:ID>2110037.4</cbc:ID>
+                <cbc:TransportModeCode>3</cbc:TransportModeCode>
+                <cac:TransportMeans>
+                    <cac:RoadTransport>
+                        <cbc:LicensePlateID>AB-123-CGL</cbc:LicensePlateID>
+                    </cac:RoadTransport>
+                </cac:TransportMeans>
+            </cac:MainCarriageShipmentStage>
+            <cac:TransportHandlingUnit>
+                <cac:Package>
+                    <cac:GoodsItem>
+                        <cac:Item>
+                            <cbc:Description>Emballage</cbc:Description>
+                        </cac:Item>
+                    </cac:GoodsItem>
+                </cac:Package>
+            </cac:TransportHandlingUnit>
+        </cac:Consignment>
+    </cac:Shipment>
+    <cac:DocumentReference>
+        <cbc:ID>2110037.4</cbc:ID>
+        <cbc:DocumentType>TEP</cbc:DocumentType>
+    </cac:DocumentReference>
+    <cac:DocumentReference>
+        <cbc:ID>2110037.4</cbc:ID>
+        <cbc:DocumentType>TEP</cbc:DocumentType>
+    </cac:DocumentReference>
+</Waybill>
