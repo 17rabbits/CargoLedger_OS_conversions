@@ -5,6 +5,7 @@ import InvalidDocumentException
 import com.helger.ubl23.UBL23Validator
 import com.helger.ubl23.UBL23Writer
 import jakarta.xml.bind.JAXBContext
+import jakarta.xml.bind.JAXBElement
 import nl.cargoledger.conversions.ConversionType
 import nl.cargoledger.conversions.models.opentrip.*
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_23.*
@@ -12,6 +13,7 @@ import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_23.Loc
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_23.*
 import oasis.names.specification.ubl.schema.xsd.waybill_23.WaybillType
 import un.unece.uncefact.data.standard.ecmr._131.ECMRType
+import un.unece.uncefact.data.standard.ecmr._131.ObjectFactory
 import un.unece.uncefact.data.standard.reusableaggregatebusinessinformationentity._131.LogisticsPackageType
 import un.unece.uncefact.data.standard.reusableaggregatebusinessinformationentity._131.SupplyChainConsignmentItemType
 import un.unece.uncefact.data.standard.reusableaggregatebusinessinformationentity._131.TradeAddressType
@@ -20,9 +22,9 @@ import java.util.*
 
 class UNCEFACTUBLConversion : Conversion(ConversionType.UNCEFACT, ConversionType.UBL) {
     override fun convert(a: String): String {
-        val jaxbContext = JAXBContext.newInstance(ECMRType::class.java)
+        val jaxbContext = JAXBContext.newInstance(ObjectFactory().javaClass)
         val jaxbUnmarshaller = jaxbContext.createUnmarshaller()
-        val uncefact = jaxbUnmarshaller.unmarshal(a.reader()) as ECMRType
+        val uncefact = (jaxbUnmarshaller.unmarshal(a.reader()) as JAXBElement<ECMRType>).value
 
         val consignment = uncefact.specifiedSupplyChainConsignment
 
