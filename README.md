@@ -1,5 +1,5 @@
 # Conversions
-This repository enables you to convert between the following formats: UBL, UNCEFACT and Opentrip.
+This repository enables you to convert between the following formats: UBL, UN/CEFACT and Opentrip.
 
 # Usage
 Use the ConversionManager to get a specific Conversion
